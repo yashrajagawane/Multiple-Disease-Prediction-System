@@ -1,0 +1,15 @@
+# Virtual Environment
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Model files
+models/*.pkl
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# VS Code settings (optional)
+.vscode/
