@@ -82,3 +82,33 @@ Multi_Disease_Prediction_System/
 ├── requirements.txt
 └── README.md
 ```
+
+## ⚙️ Installation & Setup
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/yashrajagawane/Multi-Disease-Prediction-System.git
+cd Multi-Disease-Prediction-System
+```
+
+### 2️⃣ Create Virtual Environment
+
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+### 3️⃣ Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4️⃣ Run the Application
+
+```bash
+streamlit run app.py
+```
+
+
