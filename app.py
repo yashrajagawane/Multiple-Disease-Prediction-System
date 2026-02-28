@@ -26,6 +26,10 @@ liver_model = pickle.load(open("models/liver_model.pkl", "rb"))
 liver_scaler = pickle.load(open("models/liver_scaler.pkl", "rb"))
 liver_columns = pickle.load(open("models/liver_columns.pkl", "rb"))
 
+kidney_model = pickle.load(open("models/kidney_model.pkl", "rb"))
+kidney_scaler = pickle.load(open("models/kidney_scaler.pkl", "rb"))
+kidney_columns = pickle.load(open("models/kidney_columns.pkl", "rb"))
+
 # ==============================
 # Custom Styling
 # ==============================
@@ -55,7 +59,7 @@ st.markdown("""
 st.sidebar.title("🩺 Disease Selection")
 disease = st.sidebar.selectbox(
     "Choose Disease",
-    ["Diabetes", "Heart Disease","Liver Disease"]
+    ["Diabetes", "Heart Disease","Liver Disease", "Kidney Disease"]
 )
 
 # ==============================
@@ -220,3 +224,101 @@ if disease == "Liver Disease":
             st.error("⚠️ High Risk of Liver Disease")
         else:
             st.success("✅ Low Risk of Liver Disease")
+# ==============================
+# Kidney Disease Section
+# ==============================
+if disease == "Kidney Disease":
+
+    st.markdown('<div class="section-title">Kidney Disease Prediction</div>', unsafe_allow_html=True)
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        age = st.number_input("Age", 1, 120)
+        bp = st.number_input("Blood Pressure", 50, 200)
+        sg = st.number_input("Specific Gravity", 1.0, 1.05, step=0.001)
+        al = st.number_input("Albumin (0-5)", 0, 5)
+        su = st.number_input("Sugar (0-5)", 0, 5)
+        rbc = st.selectbox("Red Blood Cells", ["Normal", "Abnormal"])
+        pc = st.selectbox("Pus Cell", ["Normal", "Abnormal"])
+        pcc = st.selectbox("Pus Cell Clumps", ["Present", "Not Present"])
+        ba = st.selectbox("Bacteria", ["Present", "Not Present"])
+        bgr = st.number_input("Blood Glucose Random", 0, 500)
+        bu = st.number_input("Blood Urea", 0.0, 300.0)
+
+    with col2:
+        sc = st.number_input("Serum Creatinine", 0.0, 20.0)
+        sod = st.number_input("Sodium", 0.0, 200.0)
+        pot = st.number_input("Potassium", 0.0, 10.0)
+        hemo = st.number_input("Hemoglobin", 0.0, 20.0)
+        pcv = st.number_input("Packed Cell Volume", 0.0, 60.0)
+        wc = st.number_input("White Blood Cell Count", 0, 20000)
+        rc = st.number_input("Red Blood Cell Count", 0.0, 10.0)
+        htn = st.selectbox("Hypertension", ["Yes", "No"])
+        dm = st.selectbox("Diabetes Mellitus", ["Yes", "No"])
+        cad = st.selectbox("Coronary Artery Disease", ["Yes", "No"])
+        appet = st.selectbox("Appetite", ["Good", "Poor"])
+        pe = st.selectbox("Pedal Edema", ["Yes", "No"])
+        ane = st.selectbox("Anemia", ["Yes", "No"])
+
+    # ======================
+    # Convert categorical
+    # ======================
+    rbc = 1 if rbc == "Normal" else 0
+    pc = 1 if pc == "Normal" else 0
+    pcc = 1 if pcc == "Present" else 0
+    ba = 1 if ba == "Present" else 0
+
+    htn = 1 if htn == "Yes" else 0
+    dm = 1 if dm == "Yes" else 0
+    cad = 1 if cad == "Yes" else 0
+    appet = 1 if appet == "Good" else 0
+    pe = 1 if pe == "Yes" else 0
+    ane = 1 if ane == "Yes" else 0
+
+    # ======================
+    # Prediction
+    # ======================
+    if st.button("Predict Kidney Disease Risk"):
+
+        input_data = {
+            "age": age,
+            "bp": bp,
+            "sg": sg,
+            "al": al,
+            "su": su,
+            "rbc": rbc,
+            "pc": pc,
+            "pcc": pcc,
+            "ba": ba,
+            "bgr": bgr,
+            "bu": bu,
+            "sc": sc,
+            "sod": sod,
+            "pot": pot,
+            "hemo": hemo,
+            "pcv": pcv,
+            "wc": wc,
+            "rc": rc,
+            "htn": htn,
+            "dm": dm,
+            "cad": cad,
+            "appet": appet,
+            "pe": pe,
+            "ane": ane
+        }
+
+        input_df = pd.DataFrame([input_data])
+
+        # Ensure same column order as training
+        input_df = input_df.reindex(columns=kidney_columns, fill_value=0)
+
+        input_scaled = kidney_scaler.transform(input_df)
+        prediction = kidney_model.predict(input_scaled)
+
+        st.subheader("Prediction Result")
+
+        if prediction[0] == 1:
+            st.error("⚠️ High Risk of Chronic Kidney Disease")
+        else:
+            st.success("✅ Low Risk of Kidney Disease")

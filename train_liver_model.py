@@ -22,7 +22,6 @@ df["gender"] = df["gender"].map({"Male": 1, "Female": 0})
 # Handle missing values
 df = df.fillna(df.median())
 
-
 # =========================
 # Handle Class Imbalance (Oversampling)
 # =========================
