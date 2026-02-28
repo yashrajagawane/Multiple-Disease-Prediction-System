@@ -1,4 +1,8 @@
 # 🩺 Multi-Disease Prediction System using Machine Learning
+
+🚀 **Live Demo:** 
+[![Live App](https://img.shields.io/badge/Streamlit-Live_App-red?logo=streamlit)](https://medical-risk-analyzer-yash.streamlit.app)
+
 An AI-powered web application that predicts the risk of multiple diseases using trained machine learning models.
 
 ## 🚀 Project Overview
@@ -150,3 +154,4 @@ B.Tech Student | Machine Learning Enthusiast
 
 🔗 GitHub: https://github.com/yashrajagawane  
 📧 Email: agawaneyash865@gmail.com
+
