@@ -22,6 +22,10 @@ heart_model = pickle.load(open("models/heart_model.pkl", "rb"))
 heart_scaler = pickle.load(open("models/heart_scaler.pkl", "rb"))
 heart_columns = pickle.load(open("models/heart_columns.pkl", "rb"))
 
+liver_model = pickle.load(open("models/liver_model.pkl", "rb"))
+liver_scaler = pickle.load(open("models/liver_scaler.pkl", "rb"))
+liver_columns = pickle.load(open("models/liver_columns.pkl", "rb"))
+
 # ==============================
 # Custom Styling
 # ==============================
@@ -51,7 +55,7 @@ st.markdown("""
 st.sidebar.title("🩺 Disease Selection")
 disease = st.sidebar.selectbox(
     "Choose Disease",
-    ["Diabetes", "Heart Disease"]
+    ["Diabetes", "Heart Disease","Liver Disease"]
 )
 
 # ==============================
@@ -162,3 +166,57 @@ if disease == "Heart Disease":
             st.error("⚠️ High Risk of Heart Disease Detected")
         else:
             st.success("✅ Low Risk of Heart Disease")
+
+# ==============================
+# Liver Disease Section
+# ==============================
+if disease == "Liver Disease":
+
+    st.markdown('<div class="section-title">Liver Disease Prediction</div>', unsafe_allow_html=True)
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        age = st.number_input("Age", 1, 120)
+        gender = st.selectbox("Gender", ["Male", "Female"])
+        tot_bilirubin = st.number_input("Total Bilirubin", 0.0, 50.0)
+        direct_bilirubin = st.number_input("Direct Bilirubin", 0.0, 20.0)
+        tot_proteins = st.number_input("Total Proteins", 0.0, 2000.0)
+
+    with col2:
+        albumin = st.number_input("Albumin", 0.0, 100.0)
+        ag_ratio = st.number_input("Albumin/Globulin Ratio", 0.0, 10.0)
+        sgpt = st.number_input("SGPT", 0.0, 500.0)
+        sgot = st.number_input("SGOT", 0.0, 500.0)
+        alkphos = st.number_input("Alkaline Phosphotase", 0.0, 2000.0)
+
+    # Convert gender
+    gender = 1 if gender == "Male" else 0
+
+    if st.button("Predict Liver Disease Risk"):
+
+        input_data = {
+            "age": age,
+            "gender": gender,
+            "tot_bilirubin": tot_bilirubin,
+            "direct_bilirubin": direct_bilirubin,
+            "tot_proteins": tot_proteins,
+            "albumin": albumin,
+            "ag_ratio": ag_ratio,
+            "sgpt": sgpt,
+            "sgot": sgot,
+            "alkphos": alkphos
+        }
+
+        input_df = pd.DataFrame([input_data])
+        input_df = input_df[liver_columns]
+
+        input_scaled = liver_scaler.transform(input_df)
+        prediction = liver_model.predict(input_scaled)
+
+        st.subheader("Prediction Result")
+
+        if prediction[0] == 1:
+            st.error("⚠️ High Risk of Liver Disease")
+        else:
+            st.success("✅ Low Risk of Liver Disease")
