@@ -52,19 +52,31 @@ The application follows a modular machine learning pipeline architecture.
    - Scaler files
    - Feature column files
 
-### System Flow Diagram
 
-User
-  │
-  ▼
-Streamlit Web App
-  │
-  ▼
-Prediction Engine
-  │
-  ▼
-Trained ML Models (.pkl)
-  │
-  ▼
-Prediction Output
+## 📂 Project Structure
 
+Multi_Disease_Prediction_System/
+│
+├── app.py
+│
+├── train_diabetes_model.py
+├── train_heart_model.py
+├── train_liver_model.py
+├── train_kidney_model.py
+├── train_breast_cancer_model.py
+│
+├── datasets/
+│   ├── diabetes.csv
+│   ├── heart.csv
+│   ├── liver.csv
+│   ├── kidney.csv
+│
+├── models/
+│   ├── diabetes_model.pkl
+│   ├── heart_model.pkl
+│   ├── liver_model.pkl
+│   ├── kidney_model.pkl
+│   ├── breast_cancer_model.pkl
+│
+├── requirements.txt
+└── README.md
