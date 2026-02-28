@@ -130,3 +130,23 @@ streamlit run app.py
 - Git
 - GitHub
 
+
+## 💡 Key Features
+
+- Multi-disease prediction system in a single platform
+- Interactive and user-friendly Streamlit UI
+- Separate trained models for each disease
+- Feature scaling and preprocessing pipeline
+- Model persistence using Pickle (.pkl files)
+- Feature selection for optimized performance
+- Modular project structure
+- Ready for cloud deployment
+
+
+## 👨‍💻 Author
+
+**Yashraj Agawane**  
+B.Tech Student | Machine Learning Enthusiast  
+
+🔗 GitHub: https://github.com/yashrajagawane  
+📧 Email: agawaneyash865@gmail.com
