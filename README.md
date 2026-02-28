@@ -54,7 +54,6 @@ The application follows a modular machine learning pipeline architecture.
 
 
 ## 📂 Project Structure
-
 Multi_Disease_Prediction_System/
 │
 ├── app.py
@@ -80,3 +79,4 @@ Multi_Disease_Prediction_System/
 │
 ├── requirements.txt
 └── README.md
+
