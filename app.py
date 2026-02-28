@@ -30,6 +30,10 @@ kidney_model = pickle.load(open("models/kidney_model.pkl", "rb"))
 kidney_scaler = pickle.load(open("models/kidney_scaler.pkl", "rb"))
 kidney_columns = pickle.load(open("models/kidney_columns.pkl", "rb"))
 
+breast_model = pickle.load(open("models/breast_cancer_model.pkl", "rb"))
+breast_scaler = pickle.load(open("models/breast_cancer_scaler.pkl", "rb"))
+breast_columns = pickle.load(open("models/breast_cancer_columns.pkl", "rb"))
+
 # ==============================
 # Custom Styling
 # ==============================
@@ -59,7 +63,7 @@ st.markdown("""
 st.sidebar.title("🩺 Disease Selection")
 disease = st.sidebar.selectbox(
     "Choose Disease",
-    ["Diabetes", "Heart Disease","Liver Disease", "Kidney Disease"]
+    ["Diabetes", "Heart Disease","Liver Disease", "Kidney Disease", "Breast Cancer"]
 )
 
 # ==============================
@@ -322,3 +326,43 @@ if disease == "Kidney Disease":
             st.error("⚠️ High Risk of Chronic Kidney Disease")
         else:
             st.success("✅ Low Risk of Kidney Disease")
+
+# ==============================
+# Breast Cancer Section
+# ==============================
+if disease == "Breast Cancer":
+
+    st.markdown('<div class="section-title">Breast Cancer Prediction</div>', unsafe_allow_html=True)
+
+    st.write("Enter diagnostic measurements below:")
+
+    col1, col2 = st.columns(2)
+
+    inputs = {}
+
+    for i, feature in enumerate(breast_columns):
+        if i % 2 == 0:
+            with col1:
+                inputs[feature] = st.number_input(feature, format="%.5f")
+        else:
+            with col2:
+                inputs[feature] = st.number_input(feature, format="%.5f")
+
+    if st.button("Predict Breast Cancer Risk"):
+
+        input_df = pd.DataFrame([inputs])
+
+        # Ensure correct column order
+        input_df = input_df.reindex(columns=breast_columns)
+
+        input_scaled = breast_scaler.transform(input_df)
+        prediction = breast_model.predict(input_scaled)
+
+        probability = breast_model.predict_proba(input_scaled)[0][1]
+
+        st.subheader("Prediction Result")
+
+        if prediction[0] == 0:
+            st.error(f"⚠️ Malignant Tumor Detected (Risk Score: {probability*100:.2f}%)")
+        else:
+            st.success(f"✅ Benign Tumor (Risk Score: {probability*100:.2f}%)")
