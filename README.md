@@ -112,3 +112,21 @@ streamlit run app.py
 ```
 
 
+## 🛠 Tech Stack
+
+### Programming Language
+- Python
+
+### Machine Learning
+- Scikit-learn
+- XGBoost
+- Pandas
+- NumPy
+
+### Web Framework
+- Streamlit
+
+### Version Control
+- Git
+- GitHub
+
