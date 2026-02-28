@@ -13,3 +13,15 @@ The system allows users to:
 - Predict Breast Cancer
 
 Each prediction is powered by trained machine learning models with proper preprocessing and feature selection.
+
+
+## 🧠 Machine Learning Models
+------------------------------------------------------
+| Disease        | Model Used             | Accuracy |
+|---------------|-------------------------|----------|
+| Diabetes      | Support Vector Machine  | ~77%     |
+| Heart Disease | Random Forest           | ~85%     |
+| Liver Disease | Gradient Boosting       | ~87%     |
+| Kidney Disease| Random Forest           | 100%     |
+| Breast Cancer | Random Forest           | ~95%     |
+------------------------------------------------------
